@@ -1,0 +1,6 @@
+{
+	"manifest_version":3,
+	"name":"RMP Rating Injector - UKY",
+	"description":"Inject professor ratings into the myUK course registrar automatically",
+	"version":"1.0"
+}
