@@ -9,5 +9,6 @@ Repository overview:
 - `scraper.py` : a script to collect RMP data
 - `extension/` : directory for the chrome extension
     - `manifest.json` : extension manifest
+    - `profs.csv` : professor dataset scraped from rmp, not necessarily complete
     - `scripts/`
         - `injector.js` : content script, main logic of extension 
