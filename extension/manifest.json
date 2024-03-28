@@ -2,5 +2,12 @@
 	"manifest_version":3,
 	"name":"RMP Rating Injector - UKY",
 	"description":"Inject professor ratings into the myUK course registrar automatically",
-	"version":"1.0"
+	"version":"1.0",
+	"content_scripts": [
+		{
+			"matches": ["https://myuk.uky.edu/zapps/*"],
+			"js": ["scripts/injector.js"]
+		}
+	]
+
 }
