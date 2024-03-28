@@ -9,3 +9,5 @@ Repository overview:
 - `scraper.py` : a script to collect RMP data
 - `extension/` : directory for the chrome extension
     - `manifest.json` : extension manifest
+    - `scripts/`
+        - `injector.js` : content script, main logic of extension 
