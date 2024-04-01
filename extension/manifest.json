@@ -5,9 +5,10 @@
 	"version":"1.0",
 	"content_scripts": [
 		{
-			"matches": ["https://myuk.uky.edu/zapps/*"],
+			"matches": ["https://myuk.uky.edu/zapps/*", "https://myuk.uky.edu/*"],
 			"run_at" : "document_end",
-			"js": ["scripts/papaparse.min.js", "scripts/injector.js"]
+			"js": ["scripts/papaparse.min.js", "scripts/injector.js"],
+			"all_frames" : true
 		}
 	],
 	"web_accessible_resources": [
