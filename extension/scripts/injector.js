@@ -16,8 +16,8 @@ const globalObserver = new MutationObserver(mutations => {
         profName = prof.children.item(prof.children.length-3).children.item(0)
 
         if (profIndex.has(profName.textContent)) {
-            profName.insertAdjacentText('beforeend', 
-            ": " + csvData[profIndex.get(profName.textContent)].quality
+            profName.insertAdjacentHTML('beforeend',
+            ": <b>" + csvData[profIndex.get(profName.textContent)].quality + "</b>" + " rating"
             )
         }
     }
