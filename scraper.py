@@ -6,6 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 
 RMP_URL = "https://www.ratemyprofessors.com/search/professors/1118?q=*"
+NUM_PROFS = 3802 # weird quirks with rmp make this necessary
 
 TEACHER_CARD_CLASS = "TeacherCard__StyledTeacherCard-syjs0d-0" # contains link, is anchor tag
 TEACHER_NAME_CLASS = "CardName__StyledCardName-sc-1gyrgim-0"
@@ -18,7 +19,6 @@ TEACHER_DEPT = "CardSchool__Department-sc-19lmz2k-0"
 COOKIES_BUTTON = "CCPAModal__StyledCloseButton-sc-10x9kq-2"
 SHOW_MORE = "PaginationButton__StyledPaginationButton-txi1dr-1"
 
-# path to data dir for chrome 
 USER_DATA_DIR = "/home/keaton/.config/google-chrome/"
 
 options = webdriver.ChromeOptions()
@@ -36,12 +36,12 @@ time.sleep(4)
 driver.find_element(By.CLASS_NAME, COOKIES_BUTTON).click()
 
 # expand list 
-for _ in range(50):
+for _ in range((NUM_PROFS // 8) + 1): # 8 profs per click on show more 
     try:
         driver.find_element(By.CLASS_NAME, SHOW_MORE).click()
     except:
         break
-    time.sleep(1)
+    time.sleep(2)
 
 time.sleep(1) # paranoia
 
@@ -50,7 +50,7 @@ professors = driver.find_elements(By.CLASS_NAME, TEACHER_CARD_CLASS)
 
 professorList = []
 
-# for each prof
+# process professor elements on page
 for p in professors:
     name = p.find_element(By.CLASS_NAME, TEACHER_NAME_CLASS).text
     difficulty = p.find_element(By.CLASS_NAME, TEACHER_DIFFICULTY).text
