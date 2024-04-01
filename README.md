@@ -11,4 +11,5 @@ Repository overview:
     - `manifest.json` : extension manifest
     - `profs.csv` : professor dataset scraped from rmp, not necessarily complete
     - `scripts/`
-        - `injector.js` : content script, main logic of extension 
+        - `injector.js` : content script, main logic of extension
+        - `papaparse.min.js` : minimized source code to <a href="papaparse.com">Papa Parse</a>
