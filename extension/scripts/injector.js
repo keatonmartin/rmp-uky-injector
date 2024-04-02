@@ -16,9 +16,21 @@ const globalObserver = new MutationObserver(mutations => {
         profName = prof.children.item(prof.children.length-3).children.item(0)
 
         if (profIndex.has(profName.textContent)) {
+
+        //Adding hyperlink
+	        const anchorElement = document.createElement('a');
+	        anchorElement.textContent = profName.textContent;
+	        anchorElement.href = csvData[profIndex.get(profName.textContent)].link;
+	        anchorElement.target = "_blank";
+	        profName.innerHTML = '';
+	        profName.appendChild(anchorElement);
+
+
+	    //Adding quality rating
             profName.insertAdjacentHTML('beforeend',
-            ": <b>" + csvData[profIndex.get(profName.textContent)].quality + "</b>" + " rating"
+            "<br>Rating: <b>" + csvData[profIndex.get(profName.textContent)].quality + "</b>"
             )
+
         }
     }
 
@@ -44,5 +56,4 @@ Papa.parse(url, {
         });
     }
 })
-
 
