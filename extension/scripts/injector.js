@@ -13,22 +13,31 @@ const globalObserver = new MutationObserver(mutations => {
         // occasionally a <p> element begins the course row cards, we index from the end to avoid
         // grabbing the wrong element
         
-        profName = prof.children.item(prof.children.length-3).children.item(0)
+        profNameElem = prof.children.item(prof.children.length-3).children.item(0)
 
-        if (profIndex.has(profName.textContent)) {
+        // try using only first and last name if not present in map
+        profName = profNameElem.textContent
+        if (!profIndex.has(profName)) {
+            names = profName.split(" ")
+            if (names.length > 2) {
+                profName = names[0] + " " + names[2]
+            }
+        }
+        
 
-        //Adding hyperlink
+        if (profIndex.has(profName)) {
+
+            //Adding hyperlink
 	        const anchorElement = document.createElement('a');
-	        anchorElement.textContent = profName.textContent;
-	        anchorElement.href = csvData[profIndex.get(profName.textContent)].link;
+	        anchorElement.textContent = profName;
+	        anchorElement.href = csvData[profIndex.get(profName)].link;
 	        anchorElement.target = "_blank";
-	        profName.innerHTML = '';
-	        profName.appendChild(anchorElement);
+	        profNameElem.innerHTML = '';
+	        profNameElem.appendChild(anchorElement);
 
-
-	    //Adding quality rating
-            profName.insertAdjacentHTML('beforeend',
-            "<br>Rating: <b>" + csvData[profIndex.get(profName.textContent)].quality + "</b>"
+	        //Adding quality rating
+            profNameElem.insertAdjacentHTML('beforeend',
+            "<br>Rating: <b>" + csvData[profIndex.get(profName)].quality + "</b>"
             )
 
         }
