@@ -12,8 +12,17 @@ const globalObserver = new MutationObserver(mutations => {
 
         // occasionally a <p> element begins the course row cards, we index from the end to avoid
         // grabbing the wrong element
-        
-        profNameElem = prof.children.item(prof.children.length-3).children.item(0)
+
+        // if there are five children, it's likely the bottom an entry with two lines, like a lab or practicum
+        // in this case, the name is the last element as there is no "Plan" or "Register" button
+
+        console.log(prof.children.length)
+
+        if (prof.children.length == 5) {
+            profNameElem = prof.children.item(4).children.item(0)
+        } else {
+            profNameElem = prof.children.item(prof.children.length-3).children.item(0)
+        }
 
         // try using only first and last name if not present in map
         profName = profNameElem.textContent
