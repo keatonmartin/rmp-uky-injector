@@ -44,9 +44,14 @@ const globalObserver = new MutationObserver(mutations => {
 	        profNameElem.innerHTML = '';
 	        profNameElem.appendChild(anchorElement);
 
-	        //Adding quality rating
+	        if (csvData[profIndex.get(profName)].quality != 0)
             profNameElem.insertAdjacentHTML('beforeend',
             "<br>Rating: <b>" + csvData[profIndex.get(profName)].quality + "</b>"
+            )
+
+            if (csvData[profIndex.get(profName)].quality == 0)
+            profNameElem.insertAdjacentHTML('beforeend',
+            "<br>Rating: N/A<b>" + "</b>"
             )
 
         }
