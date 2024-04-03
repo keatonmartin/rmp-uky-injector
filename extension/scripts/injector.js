@@ -37,13 +37,17 @@ const globalObserver = new MutationObserver(mutations => {
         if (profIndex.has(profName)) {
 
             //Adding hyperlink
+            //Creating an anchor element
 	        const anchorElement = document.createElement('a');
 	        anchorElement.textContent = profName;
 	        anchorElement.href = csvData[profIndex.get(profName)].link;
 	        anchorElement.target = "_blank";
-	        profNameElem.innerHTML = '';
+            //Replacing professors name element with anchor element
+            profNameElem.innerHTML = '';
 	        profNameElem.appendChild(anchorElement);
 
+
+            //Adding professor's quality rating
 	        if (csvData[profIndex.get(profName)].quality != 0)
             profNameElem.insertAdjacentHTML('beforeend',
             "<br>Rating: <b>" + csvData[profIndex.get(profName)].quality + "</b>"
