@@ -47,16 +47,18 @@ const globalObserver = new MutationObserver(mutations => {
 	        profNameElem.appendChild(anchorElement);
 
 
-            //Adding professor's quality rating
-	        if (csvData[profIndex.get(profName)].quality != 0)
-            profNameElem.insertAdjacentHTML('beforeend',
-            "<br>Rating: <b>" + csvData[profIndex.get(profName)].quality + "</b>"
-            )
-
-            if (csvData[profIndex.get(profName)].quality == 0)
-            profNameElem.insertAdjacentHTML('beforeend',
-            "<br>Rating: N/A<b>" + "</b>"
-            )
+            // Adding professor's quality rating
+            if (csvData[profIndex.get(profName)].quality !== 0) {
+                const qualityRating = document.createElement('span');
+                qualityRating.innerHTML = "<br>Rating: <b>" + csvData[profIndex.get(profName)].quality + "</b>";
+                
+                // Add "would take again" percentage as tooltip
+                qualityRating.title = "Would Take Again: " + csvData[profIndex.get(profName)].would_take_again;
+                
+                profNameElem.appendChild(qualityRating);
+            } else {
+                profNameElem.insertAdjacentHTML('beforeend', "<br>Rating: N/A<b></b>");
+            }
 
         }
     }
@@ -83,4 +85,3 @@ Papa.parse(url, {
         });
     }
 })
-
