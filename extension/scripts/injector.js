@@ -48,17 +48,49 @@ const globalObserver = new MutationObserver(mutations => {
 
 
             // Adding professor's quality rating
-            if (csvData[profIndex.get(profName)].quality !== 0) {
-                const qualityRating = document.createElement('span');
-                qualityRating.innerHTML = "<br>Rating: <b>" + csvData[profIndex.get(profName)].quality + "</b>";
-                
-                // Add "would take again" percentage as tooltip
-                qualityRating.title = "Would Take Again: " + csvData[profIndex.get(profName)].would_take_again;
-                
-                profNameElem.appendChild(qualityRating);
-            } else {
-                profNameElem.insertAdjacentHTML('beforeend', "<br>Rating: N/A<b></b>");
-            }
+if (csvData[profIndex.get(profName)].quality !== 0) {
+    // Create a span element for the quality rating
+    const qualityRating = document.createElement('span');
+    qualityRating.innerHTML = "<br>Rating: <b>" + csvData[profIndex.get(profName)].quality + "</b>";
+    
+    // Create a div element for the custom tooltip
+    const tooltip = document.createElement('div');
+    tooltip.innerHTML = `
+        <div>Department: ${csvData[profIndex.get(profName)].department}</div>
+        <div>Would Take Again: ${csvData[profIndex.get(profName)].would_take_again}</div>
+        <div>Level of Difficulty: ${csvData[profIndex.get(profName)].difficulty}</div>
+	<div>Number of Ratings: ${csvData[profIndex.get(profName)].num_ratings}</div>
+    `;
+    
+    // Apply CSS styling to the tooltip
+    tooltip.style.position = 'absolute';
+    tooltip.style.padding = '5px';
+    tooltip.style.backgroundColor = '#f9f9f9';
+    tooltip.style.border = '1px solid #ccc';
+    tooltip.style.borderRadius = '4px';
+    tooltip.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.2)';
+    tooltip.style.visibility = 'hidden';
+    
+    // Append the tooltip to the document body
+    document.body.appendChild(tooltip);
+    
+    // Add event listeners to show and hide the tooltip
+    qualityRating.addEventListener('mouseenter', (e) => {
+        tooltip.style.visibility = 'visible';
+        tooltip.style.left = `${e.pageX + 10}px`;
+        tooltip.style.top = `${e.pageY + 10}px`;
+    });
+
+    qualityRating.addEventListener('mouseleave', () => {
+        tooltip.style.visibility = 'hidden';
+    });
+    
+    // Append the quality rating span to the professor name element
+    profNameElem.appendChild(qualityRating);
+} else {
+    profNameElem.insertAdjacentHTML('beforeend', "<br>Rating: N/A<b></b>");
+}
+
 
         }
     }
